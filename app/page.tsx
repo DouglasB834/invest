@@ -1,12 +1,14 @@
-import { Button } from "./_components/ui/button";
+import { redirect } from "next/navigation";
 
-const Home = () => {
+import { UserButton } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
+
+const Home = async () => {
+  const { userId } = auth();
+  if (!userId) return redirect("/login");
   return (
     <div className="flex w-full flex-col items-center gap-4">
-      <h1>chama nenenm</h1>
-      <div>
-        <Button> criando projecto...</Button>
-      </div>
+      <UserButton showName />
     </div>
   );
 };
