@@ -5,31 +5,12 @@ import { PencilIcon, TrashIcon } from "lucide-react";
 import { Transaction } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/app/_components/ui/button";
+import {
+  TRANSACTION_CATEGORY,
+  TRANSACTION_PAYMENTE,
+} from "@/app/_constants/transations";
 
-import { TransationTypeBadge } from "../_components/type-badge";
-
-export const TRANSACTION_CATEGORY = {
-  EDUCATION: "Educação",
-  ENTERTAINMENT: "Entretenimento",
-  FOOD: "Alimentação",
-  HEALTH: "Saúde",
-  HOUSING: "Moradia",
-  SALARY: "Salário",
-  TRANSPORTATION: "Transporte",
-  UTILITY: "Utilidades",
-  OTHER: "Outros",
-};
-
-//metetodos de pagamento
-export const TRANSACTION_PAYMENTE = {
-  DEBIT_CARD: "Cartão de débito",
-  CREDIT_CARD: "Cartão de crédito",
-  BANK_TRANSFER: "Transferência bancária",
-  BANK_SLIP: "Boleto bancário",
-  PIX: "PIX",
-  CASH: "Dinheiro",
-  OTHER: "Outros",
-};
+import { TransactionTypeBadge } from "../_components/type-badge";
 
 export const transationsColumns: ColumnDef<Transaction>[] = [
   {
@@ -39,9 +20,9 @@ export const transationsColumns: ColumnDef<Transaction>[] = [
   {
     accessorKey: "type",
     header: "Tipo",
-    cell: ({ row: { original: transaction } }) => {
-      <TransationTypeBadge transaction={transaction} />;
-    },
+    cell: ({ row: { original: transaction } }) => (
+      <TransactionTypeBadge transaction={transaction} />
+    ),
   },
   {
     accessorKey: "category",

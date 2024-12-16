@@ -7,7 +7,7 @@ interface TransationTypeBadgeProps {
   transaction: Transaction;
 }
 
-export const TransationTypeBadge = ({
+export const TransactionTypeBadge = ({
   transaction,
 }: TransationTypeBadgeProps) => {
   if (transaction.type === TransactionType.DEPOSIT) {
@@ -20,8 +20,8 @@ export const TransationTypeBadge = ({
   }
   if (transaction.type === TransactionType.EXPENSE) {
     return (
-      <Badge className="text-danger bg-danger bg-opacity-10 font-bold hover:bg-muted">
-        <CircleIcon size={10} className="fill-danger mr-2" />
+      <Badge className="bg-danger bg-opacity-10 font-bold text-danger hover:bg-muted">
+        <CircleIcon size={10} className="mr-2 fill-danger" />
         Despesa
       </Badge>
     );

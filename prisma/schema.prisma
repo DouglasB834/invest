@@ -50,6 +50,7 @@ enum TransactionPaymentMethod {
   CREDIT_CARD
   DEBIT_CARD
   BANK_SLIP
+  BANK_TRANSFER
   CASH
   PIX
   OTHER
