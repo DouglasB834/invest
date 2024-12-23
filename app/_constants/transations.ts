@@ -28,64 +28,64 @@ export const TRANSACTION_PAYMENTE = {
 };
 
 export const TRANSACTION_TYPE_OPTIONS = [
-  { Value: TransactionType.EXPENSE, Label: "Despesa" },
-  { Value: TransactionType.DEPOSIT, Label: "Deposito" },
-  { Value: TransactionType.INVESTMENT, Label: "Investimento" },
+  { value: TransactionType.EXPENSE, label: "Despesa" },
+  { value: TransactionType.DEPOSIT, label: "Deposito" },
+  { value: TransactionType.INVESTMENT, label: "Investimento" },
 ];
 
 export const TRANSACTION_PAYMENTE_M_OPTIONS = [
-  { Value: TransactionPaymentMethod.CASH, Label: TRANSACTION_PAYMENTE.CASH },
+  { value: TransactionPaymentMethod.CASH, label: TRANSACTION_PAYMENTE.CASH },
   {
-    Value: TransactionPaymentMethod.BANK_SLIP,
-    Label: TRANSACTION_PAYMENTE.BANK_SLIP,
+    value: TransactionPaymentMethod.BANK_SLIP,
+    label: TRANSACTION_PAYMENTE.BANK_SLIP,
   },
   {
-    Value: TransactionPaymentMethod.CREDIT_CARD,
-    Label: TRANSACTION_PAYMENTE.CREDIT_CARD,
+    value: TransactionPaymentMethod.CREDIT_CARD,
+    label: TRANSACTION_PAYMENTE.CREDIT_CARD,
   },
   {
-    Value: TransactionPaymentMethod.DEBIT_CARD,
-    Label: TRANSACTION_PAYMENTE.DEBIT_CARD,
+    value: TransactionPaymentMethod.DEBIT_CARD,
+    label: TRANSACTION_PAYMENTE.DEBIT_CARD,
   },
-  { Value: TransactionPaymentMethod.PIX, Label: TRANSACTION_PAYMENTE.PIX },
-  { Value: TransactionPaymentMethod.OTHER, Label: TRANSACTION_PAYMENTE.OTHER },
+  { value: TransactionPaymentMethod.PIX, label: TRANSACTION_PAYMENTE.PIX },
+  { value: TransactionPaymentMethod.OTHER, label: TRANSACTION_PAYMENTE.OTHER },
 ];
 
 export const TRANSACTION_CATEGORY_OPTIONS = [
   {
-    Value: TransactionCategory.EDUCATION,
-    Label: TRANSACTION_CATEGORY[TransactionCategory.EDUCATION],
+    value: TransactionCategory.EDUCATION,
+    label: TRANSACTION_CATEGORY[TransactionCategory.EDUCATION],
   },
   {
-    Value: TransactionCategory.ENTERTAINMENT,
-    Label: TRANSACTION_CATEGORY[TransactionCategory.ENTERTAINMENT],
+    value: TransactionCategory.ENTERTAINMENT,
+    label: TRANSACTION_CATEGORY[TransactionCategory.ENTERTAINMENT],
   },
   {
-    Value: TransactionCategory.FOOD,
-    Label: TRANSACTION_CATEGORY[TransactionCategory.FOOD],
+    value: TransactionCategory.FOOD,
+    label: TRANSACTION_CATEGORY[TransactionCategory.FOOD],
   },
   {
-    Value: TransactionCategory.HEALTH,
-    Label: TRANSACTION_CATEGORY[TransactionCategory.HEALTH],
+    value: TransactionCategory.HEALTH,
+    label: TRANSACTION_CATEGORY[TransactionCategory.HEALTH],
   },
   {
-    Value: TransactionCategory.HOUSING,
-    Label: TRANSACTION_CATEGORY[TransactionCategory.HOUSING],
+    value: TransactionCategory.HOUSING,
+    label: TRANSACTION_CATEGORY[TransactionCategory.HOUSING],
   },
   {
-    Value: TransactionCategory.SALARY,
-    Label: TRANSACTION_CATEGORY[TransactionCategory.SALARY],
+    value: TransactionCategory.SALARY,
+    label: TRANSACTION_CATEGORY[TransactionCategory.SALARY],
   },
   {
-    Value: TransactionCategory.TRANSPORTATION,
-    Label: TRANSACTION_CATEGORY[TransactionCategory.TRANSPORTATION],
+    value: TransactionCategory.TRANSPORTATION,
+    label: TRANSACTION_CATEGORY[TransactionCategory.TRANSPORTATION],
   },
   {
-    Value: TransactionCategory.UTILITY,
-    Label: TRANSACTION_CATEGORY[TransactionCategory.UTILITY],
+    value: TransactionCategory.UTILITY,
+    label: TRANSACTION_CATEGORY[TransactionCategory.UTILITY],
   },
   {
-    Value: TransactionCategory.OTHER,
-    Label: TRANSACTION_CATEGORY[TransactionCategory.OTHER],
+    value: TransactionCategory.OTHER,
+    label: TRANSACTION_CATEGORY[TransactionCategory.OTHER],
   },
 ];

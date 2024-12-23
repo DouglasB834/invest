@@ -1,6 +1,7 @@
 "use client";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -77,7 +78,13 @@ export const AddTransationButton = () => {
   };
 
   return (
-    <Dialog>
+    <Dialog
+      onOpenChange={(open) => {
+        if (!open) {
+          form.reset();
+        }
+      }}
+    >
       <DialogTrigger asChild>
         <Button className="rounded-full">
           Adicionar transação <ArrowDownUpIcon />
@@ -134,8 +141,8 @@ export const AddTransationButton = () => {
                     </FormControl>
                     <SelectContent>
                       {TRANSACTION_TYPE_OPTIONS.map((ptions) => (
-                        <SelectItem key={ptions.Value} value={ptions.Value}>
-                          {ptions.Label}
+                        <SelectItem key={ptions.value} value={ptions.value}>
+                          {ptions.label}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -161,8 +168,8 @@ export const AddTransationButton = () => {
                     </FormControl>
                     <SelectContent>
                       {TRANSACTION_CATEGORY_OPTIONS.map((ptions) => (
-                        <SelectItem key={ptions.Value} value={ptions.Value}>
-                          {ptions.Label}
+                        <SelectItem key={ptions.value} value={ptions.value}>
+                          {ptions.label}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -184,9 +191,11 @@ export const AddTransationButton = () => {
             />
 
             <DialogFooter>
-              <Button type="button" variant="outline">
-                Cancelar
-              </Button>
+              <DialogClose>
+                <Button type="button" variant="outline">
+                  Cancelar
+                </Button>
+              </DialogClose>
               <Button type="submit">Adicionar</Button>
             </DialogFooter>
           </form>
