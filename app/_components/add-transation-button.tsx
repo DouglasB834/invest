@@ -43,6 +43,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "./ui/button";
 import { DatePicker } from "./ui/date-picker";
 import { Input } from "./ui/input";
+import { addTransaction } from "../_actions";
 import { MoneyInput } from "./money-input";
 
 export const AddTransationButton = () => {
@@ -61,8 +62,10 @@ export const AddTransationButton = () => {
     }),
   });
 
+  type FormSchema = z.infer<typeof formSchema>;
+
   // const { handleSubmit, register } = useForm<formSchema>({});
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
@@ -73,8 +76,14 @@ export const AddTransationButton = () => {
       date: new Date(),
     },
   });
-  const onSubmit = () => {
-    console.log("submit");
+
+  const onSubmit = (data: FormSchema) => {
+    console.log("submit", { data });
+    try {
+      addTransaction(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -191,7 +200,7 @@ export const AddTransationButton = () => {
             />
 
             <DialogFooter>
-              <DialogClose>
+              <DialogClose asChild>
                 <Button type="button" variant="outline">
                   Cancelar
                 </Button>
