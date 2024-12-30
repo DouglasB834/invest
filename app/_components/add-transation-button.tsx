@@ -34,16 +34,16 @@ import {
   TRANSACTION_TYPE_OPTIONS,
 } from "../_constants/transations";
 import { ArrowDownUpIcon } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { addTransaction } from "../_actions/add-transation";
 import { Button } from "./ui/button";
 import { DatePicker } from "./ui/date-picker";
 import { Input } from "./ui/input";
-import { addTransaction } from "../_actions";
 import { MoneyInput } from "./money-input";
 
 export const AddTransationButton = () => {
@@ -54,13 +54,16 @@ export const AddTransationButton = () => {
     type: z.nativeEnum(TransactionType, {
       required_error: "O tipo é obrigatório",
     }),
-    amount: z.string().trim().min(1, "O valor é obrigatório"),
+    amount: z
+      .number({ message: "O valor é obrigatório" })
+      .positive("O valor deve ser positivo"),
     category: z.nativeEnum(TransactionCategory),
     paymentMethod: z.nativeEnum(TransactionPaymentMethod),
     date: z.date({
       required_error: "A data é obrigatória",
     }),
   });
+  const [isOpenDialog, setIsOpenDialog] = useState(false);
 
   type FormSchema = z.infer<typeof formSchema>;
 
@@ -69,7 +72,7 @@ export const AddTransationButton = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      amount: "",
+      amount: 0,
       type: TransactionType.EXPENSE,
       category: TransactionCategory.OTHER,
       paymentMethod: TransactionPaymentMethod.CASH,
@@ -81,6 +84,7 @@ export const AddTransationButton = () => {
     console.log("submit", { data });
     try {
       addTransaction(data);
+      setIsOpenDialog(false);
     } catch (error) {
       console.error(error);
     }
@@ -88,7 +92,9 @@ export const AddTransationButton = () => {
 
   return (
     <Dialog
+      open={isOpenDialog}
       onOpenChange={(open) => {
+        setIsOpenDialog(open);
         if (!open) {
           form.reset();
         }
@@ -127,7 +133,15 @@ export const AddTransationButton = () => {
                 <FormItem>
                   <FormLabel>Amount</FormLabel>
                   <FormControl>
-                    <MoneyInput placeholder="Digite o valor..." {...field} />
+                    <MoneyInput
+                      placeholder="Digite o valor..."
+                      value={field.value}
+                      onValueChange={({ floatValue }) =>
+                        field.onChange(floatValue)
+                      }
+                      onBlur={field.onBlur}
+                      disabled={field.disabled}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -205,7 +219,9 @@ export const AddTransationButton = () => {
                   Cancelar
                 </Button>
               </DialogClose>
-              <Button type="submit">Adicionar</Button>
+              <Button disabled={form.formState.isSubmitting} type="submit">
+                Adicionar
+              </Button>
             </DialogFooter>
           </form>
         </Form>

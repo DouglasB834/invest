@@ -10,7 +10,9 @@ import { Button } from "../_components/ui/button";
 
 const LoginPage = async () => {
   const { userId } = await auth();
-  if (userId) return redirect("/");
+  if (userId) {
+    redirect("/");
+  }
 
   return (
     <div className="grid h-full grid-cols-2">
