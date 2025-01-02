@@ -26,7 +26,10 @@ export const addTransaction = async (params: AddTransactionParams) => {
   addTransactionSchema.parse(params);
 
   const { userId } = await auth();
-  if (!userId) throw new Error("Unauthorized");
+  console.log(userId);
+  if (!userId) {
+    throw new Error("Unauthorized");
+  }
 
   await db.transaction.create({
     data: { ...params, userId },
