@@ -30,6 +30,7 @@ import {
 } from "./ui/select";
 import {
   TRANSACTION_CATEGORY_OPTIONS,
+  TRANSACTION_PAYMENTE_M_OPTIONS,
   TRANSACTION_TYPE_OPTIONS,
 } from "../_constants/transations";
 import { useForm } from "react-hook-form";
@@ -37,7 +38,7 @@ import { z } from "zod";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { addTransaction } from "../_actions/add-transation";
+import { upsertTransaction } from "../_actions/add-transation";
 import { Button } from "./ui/button";
 import { DatePicker } from "./ui/date-picker";
 import { Input } from "./ui/input";
@@ -46,6 +47,7 @@ import { MoneyInput } from "./money-input";
 interface UpsertTransationDialogProps {
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
+  transactionId?: string;
   defaultValues?: FormSchema;
 }
 
@@ -71,6 +73,7 @@ type FormSchema = z.infer<typeof formSchema>;
 export const UpsertTransationDialog = ({
   isOpen,
   setIsOpen,
+  transactionId,
   defaultValues,
 }: UpsertTransationDialogProps) => {
   const form = useForm<FormSchema>({
@@ -87,13 +90,15 @@ export const UpsertTransationDialog = ({
 
   const onSubmit = (data: FormSchema) => {
     try {
-      addTransaction(data);
+      upsertTransaction({ ...data, id: transactionId });
       setIsOpen(false);
       form.reset();
     } catch (error) {
       console.error(error);
     }
   };
+
+  const isUpdate = Boolean(transactionId);
 
   return (
     <Dialog
@@ -108,7 +113,9 @@ export const UpsertTransationDialog = ({
       <DialogTrigger asChild></DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Adicionar transação</DialogTitle>
+          <DialogTitle>
+            {isUpdate ? "Atualizar" : "Criar"} transação
+          </DialogTitle>
           <DialogDescription>Insira as informações abaixo</DialogDescription>
         </DialogHeader>
 
@@ -164,9 +171,9 @@ export const UpsertTransationDialog = ({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {TRANSACTION_TYPE_OPTIONS.map((ptions) => (
-                        <SelectItem key={ptions.value} value={ptions.value}>
-                          {ptions.label}
+                      {TRANSACTION_TYPE_OPTIONS.map((options) => (
+                        <SelectItem key={options.value} value={options.value}>
+                          {options.label}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -191,9 +198,36 @@ export const UpsertTransationDialog = ({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {TRANSACTION_CATEGORY_OPTIONS.map((ptions) => (
-                        <SelectItem key={ptions.value} value={ptions.value}>
-                          {ptions.label}
+                      {TRANSACTION_CATEGORY_OPTIONS.map((options) => (
+                        <SelectItem key={options.value} value={options.value}>
+                          {options.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="paymentMethod"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Metodo de pagamento</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Forma de pagamento ..." />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {TRANSACTION_PAYMENTE_M_OPTIONS.map((options) => (
+                        <SelectItem key={options.value} value={options.value}>
+                          {options.label}
                         </SelectItem>
                       ))}
                     </SelectContent>

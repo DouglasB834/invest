@@ -30,6 +30,7 @@ export const EditTransationButton = ({
         isOpen={dialogIsOpen}
         setIsOpen={setDialogeIsOpden}
         defaultValues={{ ...transaction, amount: Number(transaction.amount) }}
+        transactionId={transaction.id}
       />
     </>
   );

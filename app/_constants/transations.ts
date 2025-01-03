@@ -12,7 +12,8 @@ export const TRANSACTION_CATEGORY = {
   HOUSING: "Moradia",
   SALARY: "Salário",
   TRANSPORTATION: "Transporte",
-  UTILITY: "Utilidades",
+  UTILITY: "Utilidade",
+  INVESTMENT: "Investimento",
   OTHER: "Outros",
 };
 
