@@ -17,7 +17,7 @@ const TransactionPage = async () => {
       </div>
       <DataTable
         columns={transationsColumns}
-        data={JSON.parse(JSON.stringify(transation))}
+        data={JSON.parse(JSON.stringify(transation))} //converte antes de chagar aqui
       />
     </div>
   );
