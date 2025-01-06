@@ -7,7 +7,7 @@ import { transationsColumns } from "./_colunms";
 
 const TransactionPage = async () => {
   const transation = await db.transaction.findMany({});
-  console.log(transation, " ok ? type");
+
   //composition pattern
   return (
     <div className="space-y-6 p-6">
@@ -15,7 +15,10 @@ const TransactionPage = async () => {
         <h1 className="text-2xl font-bold">Transações</h1>
         <AddTransationButton />
       </div>
-      <DataTable columns={transationsColumns} data={transation} />
+      <DataTable
+        columns={transationsColumns}
+        data={JSON.parse(JSON.stringify(transation))}
+      />
     </div>
   );
 };
