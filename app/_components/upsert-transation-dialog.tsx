@@ -38,7 +38,7 @@ import { z } from "zod";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { upsertTransaction } from "../_actions/add-transation";
+import { upsertTransaction } from "../_actions/upsert-transaction";
 import { Button } from "./ui/button";
 import { DatePicker } from "./ui/date-picker";
 import { Input } from "./ui/input";
