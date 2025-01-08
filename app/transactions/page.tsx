@@ -1,4 +1,7 @@
+import { redirect } from "next/navigation";
 import React from "react";
+
+import { auth } from "@clerk/nextjs/server";
 
 import { DataTable } from "../_components/ui/data-table";
 import { AddTransationButton } from "../_components/add-transation-button";
@@ -7,7 +10,15 @@ import { db } from "../_lib/prisma";
 import { transationsColumns } from "./_colunms";
 
 const TransactionPage = async () => {
-  const transation = await db.transaction.findMany({});
+  const { userId } = await auth();
+  if (!userId) {
+    return redirect("/login");
+  }
+  const transation = await db.transaction.findMany({
+    where: {
+      userId: userId,
+    },
+  });
 
   //composition pattern
   return (
