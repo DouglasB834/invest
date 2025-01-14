@@ -11,12 +11,13 @@ import { transationsColumns } from "./_colunms";
 
 const TransactionPage = async () => {
   const { userId } = await auth();
+  console.log(userId, "userId");
   if (!userId) {
-    return redirect("/login");
+    redirect("/");
   }
   const transation = await db.transaction.findMany({
     where: {
-      userId: userId,
+      userId,
     },
   });
 

@@ -10,6 +10,7 @@ import { Button } from "../_components/ui/button";
 
 const LoginPage = async () => {
   const { userId } = await auth();
+  console.log(userId, "userId");
   if (userId) {
     redirect("/");
   }
