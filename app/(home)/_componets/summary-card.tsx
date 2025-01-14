@@ -1,0 +1,44 @@
+import React, { ReactNode } from "react";
+
+import { Card, CardContent, CardHeader } from "@/app/_components/ui/card";
+
+interface ISummaryCardProps {
+  icon: ReactNode;
+  title: string;
+  amount: number;
+  size?: "small" | "large";
+}
+const amountFormater = (amount: number) => {
+  return Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  }).format(amount);
+};
+
+export const Summarycard = ({
+  title,
+  amount,
+  icon,
+  size = "small",
+}: ISummaryCardProps) => {
+  return (
+    <Card>
+      <CardHeader className="flex-row items-center gap-2">
+        {icon}
+        <p
+          className={`${size === "small" ? "text-sm text-muted-foreground" : "text-white opacity-70"}`}
+        >
+          {title}
+        </p>
+      </CardHeader>
+
+      <CardContent className="">
+        <div
+          className={`font-bold ${size == "small" ? "text-2xl" : "text-4xl"}`}
+        >
+          {amountFormater(amount) || 0}
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
