@@ -6,8 +6,6 @@ import {
 } from "lucide-react";
 import React from "react";
 
-import { AddTransationButton } from "@/app/_components/add-transation-button";
-
 import { Summarycard } from "./summary-card";
 
 export const SummaryCards = () => {
@@ -19,7 +17,6 @@ export const SummaryCards = () => {
         amount={2.8}
         size="large"
       />
-      <AddTransationButton />
 
       <div className="grid grid-cols-3 space-x-4">
         <Summarycard

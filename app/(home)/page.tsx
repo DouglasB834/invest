@@ -7,10 +7,10 @@ import { SummaryCards } from "./_componets/summary-cards";
 
 const Home = async () => {
   const { userId } = await auth();
-  console.log(userId, "userId");
   if (!userId) {
-    redirect("/");
+    redirect("/login");
   }
+  console.log(userId, "userId >>> ");
   return (
     <div className="">
       <Navbar />
