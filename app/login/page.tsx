@@ -10,7 +10,10 @@ import { Button } from "../_components/ui/button";
 
 const LoginPage = async () => {
   const { userId } = await auth();
-  console.log(userId, "userId");
+  console.log(userId, "userId tem alguma coisa mta errada ");
+  //JWT cannot be used prior to not before date claim (nbf).
+  // Not before date: Mon, 20 Jan 2025 10:43:34 GMT; Current date: Mon, 20 Jan 2025 10:43:23 GMT;
+  // (reason=token-not-active-yet, token-carrier=cookie)
   if (userId) {
     redirect("/");
   }
