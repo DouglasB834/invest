@@ -16,11 +16,12 @@ interface ISumaryCardProps {
 }
 
 export const SummaryCards = async ({ month }: ISumaryCardProps) => {
-  console.log(month);
+  const currentYear = new Date().getFullYear();
   const where = {
     date: {
-      gte: new Date(`2025-${month}-01`),
-      lt: new Date(`2025-${month}-31`),
+      //1 entre dia 1, maior ou igual , e menor que dia 31
+      gte: new Date(`${currentYear}-${month}-01`),
+      lt: new Date(`${currentYear}-${month}-31`),
     },
   };
 
