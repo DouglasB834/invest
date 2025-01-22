@@ -1,7 +1,4 @@
 "use client";
-import { useRouter } from "next/navigation";
-import React from "react";
-
 import {
   Select,
   SelectContent,
@@ -9,6 +6,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/app/_components/ui/select";
+import { useRouter, useSearchParams } from "next/navigation";
+import React from "react";
 
 const IMonthOptions = [
   // TODO: validar para nao mostrar meses que ainda nao passou
@@ -32,13 +31,28 @@ export const TimeSelect = () => {
   const handleSelectChange = (month: string) => {
     push(`/?month=${month}`);
   };
+  const searchParams = useSearchParams();
+  const month = searchParams.get("month");
+
+  //Na verdade tem que mostrar desde a data de criação primeira transação ate a data atual.
+  // const getCurrentMonthOptions = () => {
+  //   const currentDate = new Date();
+  //   const currentMonth = currentDate.getMonth() + 1;
+  //   return IMonthOptions.filter(
+  //     (month) => parseInt(month.value) <= currentMonth
+  //   );
+  // };
 
   return (
-    <Select onValueChange={(value) => handleSelectChange(value)}>
+    <Select
+      onValueChange={(value) => handleSelectChange(value)}
+      defaultValue={month as string}
+    >
+      {" "}
+      {/*ou !*/}
       <SelectTrigger className="w-[125px] rounded-full">
         <SelectValue placeholder="Mes" />
       </SelectTrigger>
-
       <SelectContent>
         {IMonthOptions.map((option, index) => (
           <SelectItem key={index} value={option.value}>
