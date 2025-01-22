@@ -4,8 +4,10 @@ import { redirect } from "next/navigation";
 // import { auth } from "@clerk/nextjs/server";
 
 import { Navbar } from "../_components/navbar";
+import { getDashboard } from "../_data/get-dashboard";
 import { SummaryCards } from "./_componets/summary-cards";
 import { TimeSelect } from "./_componets/time-select";
+import { TransactionPieChart } from "./_componets/transaction-pie-chart";
 
 interface ISummaryMonthSelect {
   searchParams: {
@@ -26,6 +28,8 @@ const Home = async ({ searchParams: { month } }: ISummaryMonthSelect) => {
     redirect(`/?month=${currentMonth}`);
   }
 
+  const dashboardData = await getDashboard(month);
+
   return (
     <div className="">
       <Navbar />
@@ -35,7 +39,14 @@ const Home = async ({ searchParams: { month } }: ISummaryMonthSelect) => {
           <TimeSelect />
         </div>
       </div>
-      <SummaryCards month={month} />
+
+      <div className="grid h-full grid-cols-[2fr,1fr] gap-4 p-6">
+        <SummaryCards month={month} {...dashboardData} />
+      </div>
+
+      <div className="grid grid-cols-3 grid-rows-1">
+        <TransactionPieChart {...dashboardData} />
+      </div>
     </div>
   );
 };
