@@ -35,7 +35,7 @@ export const Summarycard = ({
 
       <CardContent className="flex items-center justify-between">
         <div
-          className={`font-bold ${size == "small" ? "text-2xl" : "text-4xl"}`}
+          className={`font-bold ${size == "small" ? "text-base md:text-2xl" : "text-4xl"}`}
         >
           {amountFormater(amount) || 0}
         </div>
