@@ -1,15 +1,17 @@
 "use client";
 
-import { Card, CardContent } from "@/app/_components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/app/_components/ui/chart";
+import { TrendingUpIcon } from "lucide-react";
 import { Pie, PieChart } from "recharts";
 
+import { Card, CardContent, CardFooter } from "@/app/_components/ui/card";
 import { TransactionType } from "@prisma/client";
+import { ITypesPercentage } from "@/app/_data/get-dashboard/types";
 
 const chartConfig = {
   [TransactionType.DEPOSIT]: {
@@ -31,12 +33,14 @@ interface ITransactionPieChartProps {
   depositsTotal: number;
   investmentsTotal: number;
   expensesTotal: number;
+  typesPercentage: ITypesPercentage;
 }
 
 export function TransactionPieChart({
   depositsTotal,
   investmentsTotal,
   expensesTotal,
+  typesPercentage,
 }: ITransactionPieChartProps) {
   const chartData = [
     {
@@ -77,14 +81,13 @@ export function TransactionPieChart({
           </PieChart>
         </ChartContainer>
       </CardContent>
-      {/* <CardFooter className="flex-col gap-2 text-sm">
-        <div className="flex items-center gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+      <CardFooter className="space-y-2 text-sm">
+        <div className="flex items-center gap-2">
+          <TrendingUpIcon size={16} />
+          <span>Depositos</span>
+          <span>{typesPercentage.DEPOSIT}%</span>
         </div>
-        <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
-        </div>
-      </CardFooter> */}
+      </CardFooter>
     </Card>
   );
 }
