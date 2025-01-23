@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const DetalheTransaction = ({params:{id}}) => {
-  return (
-    <div>DetalheTransaction , { id}</div>
-  )
-}
+const DetalheTransaction = ({ params: { id } }: { params: { id: string } }) => {
+  return <div>DetalheTransaction , {id}</div>;
+};
 
-export default  DetalheTransaction
+export default DetalheTransaction;
