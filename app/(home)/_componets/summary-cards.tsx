@@ -23,15 +23,14 @@ export const SummaryCards = async ({
   expensesTotal,
 }: ISumaryCardProps) => {
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <Summarycard
         title="Saldo"
         icon={<WalletIcon size={16} />}
         amount={totalBalance}
         size="large"
       />
-
-      <div className="grid grid-cols-3 space-x-4">
+      <div className="grid grid-cols-3 gap-6">
         <Summarycard
           icon={<PiggyBankIcon size={16} className="text-primary" />}
           title="investimento"

@@ -6,12 +6,14 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/app/_components/ui/chart";
-import { TrendingUpIcon } from "lucide-react";
+import { PiggyBankIcon, TrendingDownIcon, TrendingUpIcon } from "lucide-react";
 import { Pie, PieChart } from "recharts";
 
-import { Card, CardContent, CardFooter } from "@/app/_components/ui/card";
+import { Card, CardContent } from "@/app/_components/ui/card";
 import { TransactionType } from "@prisma/client";
 import { ITypesPercentage } from "@/app/_data/get-dashboard/types";
+
+import { PercentageItem } from "./percentage-item";
 
 const chartConfig = {
   [TransactionType.DEPOSIT]: {
@@ -61,8 +63,8 @@ export function TransactionPieChart({
   ];
 
   return (
-    <Card className="flex flex-col">
-      <CardContent className="flex-1 pb-0">
+    <Card className="flex flex-col p-6">
+      <CardContent className="flex-1">
         <ChartContainer
           config={chartConfig}
           className="mx-auto aspect-square max-h-[250px]"
@@ -80,14 +82,25 @@ export function TransactionPieChart({
             />
           </PieChart>
         </ChartContainer>
-      </CardContent>
-      <CardFooter className="space-y-2 text-sm">
-        <div className="flex items-center gap-2">
-          <TrendingUpIcon size={16} />
-          <span>Depositos</span>
-          <span>{typesPercentage.DEPOSIT}%</span>
+
+        <div className="space-y-3">
+          <PercentageItem
+            icon={<PiggyBankIcon size={16} className="text-primary" />}
+            title="Investido"
+            value={typesPercentage[TransactionType.INVESTMENT]}
+          />
+          <PercentageItem
+            icon={<TrendingUpIcon size={16} className="text-success_green" />}
+            title="Receita"
+            value={typesPercentage[TransactionType.DEPOSIT]}
+          />
+          <PercentageItem
+            icon={<TrendingDownIcon size={16} className="text-danger" />}
+            title="Despesas"
+            value={typesPercentage[TransactionType.EXPENSE]}
+          />
         </div>
-      </CardFooter>
+      </CardContent>
     </Card>
   );
 }

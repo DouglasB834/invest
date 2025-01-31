@@ -31,23 +31,25 @@ const Home = async ({ searchParams: { month } }: ISummaryMonthSelect) => {
   const dashboardData = await getDashboard(month);
 
   return (
-    <div className="">
+    <>
       <Navbar />
-      <div className="space-y6 p-6">
+      <div className="space-y-6 p-6">
         <div className="flex justify-between">
           <h1 className="text-2xl font-bold">Dashboard</h1>
           <TimeSelect />
         </div>
-      </div>
 
-      <div className="grid h-full grid-cols-[2fr,1fr] gap-4 p-6">
-        <SummaryCards month={month} {...dashboardData} />
-      </div>
+        <div className="grid grid-cols-[2fr,1fr]">
+          <div className="flex flex-col gap-6">
+            <SummaryCards month={month} {...dashboardData} />
 
-      <div className="grid grid-cols-3 grid-rows-1">
-        <TransactionPieChart {...dashboardData} />
+            <div className="grid grid-cols-3 grid-rows-1 gap-6">
+              <TransactionPieChart {...dashboardData} />
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
