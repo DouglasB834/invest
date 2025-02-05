@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 
 import { Navbar } from "../_components/navbar";
 import { getDashboard } from "../_data/get-dashboard";
+import ExpensesPerCategory from "./_componets/expense-per-category";
 import { SummaryCards } from "./_componets/summary-cards";
 import { TimeSelect } from "./_componets/time-select";
 import { TransactionPieChart } from "./_componets/transaction-pie-chart";
@@ -45,6 +46,9 @@ const Home = async ({ searchParams: { month } }: ISummaryMonthSelect) => {
 
             <div className="grid grid-cols-3 grid-rows-1 gap-6">
               <TransactionPieChart {...dashboardData} />
+              <ExpensesPerCategory
+                expensePerCategory={dashboardData.totalExpensePerCategory}
+              />
             </div>
           </div>
         </div>
