@@ -1,13 +1,14 @@
 import { db } from "@/app/_lib/prisma";
 import { TransactionType } from "@prisma/client";
 
-import { ITypesPercentage } from "./types";
+import { ITotalExpensePerCategory, ITypesPercentage } from "./types";
 
 export const getDashboard = async (month: string) => {
   const currentYear = new Date().getFullYear();
   const where = {
     date: {
-      //1 entre dia 1, maior ou igual , e menor que dia 31
+      //Entre dia 1, maior ou igual , e menor que dia 31
+      //TOOD colocar pro usuario esoclher o ano
       gte: new Date(`${currentYear}-${month}-01`),
       lt: new Date(`${currentYear}-${month}-31`),
     },
@@ -26,7 +27,8 @@ export const getDashboard = async (month: string) => {
   const depositsTotal = await transactionValuesTypes("DEPOSIT");
   const investmentsTotal = await transactionValuesTypes("INVESTMENT");
   const expensesTotal = await transactionValuesTypes("EXPENSE");
-  const totalBalance = depositsTotal - expensesTotal + investmentsTotal;
+
+  const totalBalance = depositsTotal - investmentsTotal - expensesTotal;
 
   const transctionsTotal = Number(
     (
@@ -50,7 +52,24 @@ export const getDashboard = async (month: string) => {
       ((expensesTotal || 0) / transctionsTotal) * 100,
     ),
   };
-  console.log(typesPercentage.DEPOSIT);
+
+  const totalExpensePerCategory: ITotalExpensePerCategory[] = (
+    await db.transaction.groupBy({
+      by: ["category"],
+      where: {
+        ...where,
+        type: TransactionType.EXPENSE,
+      },
+      _sum: { amount: true },
+    })
+  ).map((category) => ({
+    category: category.category,
+    totalAmount: Number(category._sum.amount),
+    percentageTotal: Math.round(
+      (Number(category._sum.amount) / expensesTotal) * 100,
+    ),
+  }));
+
   return {
     totalBalance,
     depositsTotal,
@@ -58,5 +77,6 @@ export const getDashboard = async (month: string) => {
     expensesTotal,
     transctionsTotal,
     typesPercentage,
+    totalExpensePerCategory,
   };
 };
