@@ -41,7 +41,7 @@ const Home = async ({ searchParams: { month } }: ISummaryMonthSelect) => {
           <TimeSelect />
         </div>
 
-        <div className="grid grid-cols-[2fr,1fr]">
+        <div className="grid grid-cols-[2fr,1fr] gap-4">
           <div className="flex flex-col gap-6">
             <SummaryCards month={month} {...dashboardData} />
 

@@ -5,6 +5,7 @@ import { ITotalExpensePerCategory, ITypesPercentage } from "./types";
 
 export const getDashboard = async (month: string) => {
   const currentYear = new Date().getFullYear();
+  // user:"",// add usuario
   const where = {
     date: {
       //Entre dia 1, maior ou igual , e menor que dia 31
@@ -70,6 +71,7 @@ export const getDashboard = async (month: string) => {
     ),
   }));
 
+  //problema de decimal
   const lastTransactions = await db.transaction.findMany({
     where,
     orderBy: {
@@ -77,6 +79,12 @@ export const getDashboard = async (month: string) => {
     },
     take: 10,
   });
+  // .then(transactions =>
+  //   transactions.map(transaction => ({
+  //     ...transaction,
+  //     amount: Number(transaction.amount)
+  //   }))
+  // );
 
   return {
     totalBalance,
