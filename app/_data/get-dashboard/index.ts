@@ -25,6 +25,10 @@ export const getDashboard = async (month: string) => {
       )._sum?.amount,
     );
   };
+
+  //TODO total tem que ser todo valor, nao somente do mes que estamos pra saber quanto
+  // pra saber quando tem no geral nao somente naquele mes
+  // colocar um default que seria todos os messes que existe dentr do db
   const depositsTotal = await transactionValuesTypes("DEPOSIT");
   const investmentsTotal = await transactionValuesTypes("INVESTMENT");
   const expensesTotal = await transactionValuesTypes("EXPENSE");

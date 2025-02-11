@@ -2,13 +2,16 @@ import { format } from "date-fns";
 // import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { PiPixLogo } from "react-icons/pi";
 
 import { CardContent, CardHeader, CardTitle } from "@/app/_components/ui/card";
 import { ScrollArea } from "@/app/_components/ui/scroll-area";
 import { Button } from "@/app/_components/ui/button";
 import { Transaction, TransactionType } from "@prisma/client";
 import { formatCurrency } from "@/app/_utils/currentcyPrices";
+import {
+  TRANSACTION_PAYMENT_METHOD_ICONS,
+  TRANSACTION_PAYMENTE,
+} from "@/app/_constants/transations";
 
 interface ILastTransactionsProps {
   lastTransactions: Transaction[];
@@ -27,10 +30,7 @@ const princesAmount = (transaction: Transaction) => {
   if (transaction.type === TransactionType.DEPOSIT) {
     return "+";
   }
-  if (transaction.type === TransactionType.EXPENSE) {
-    return "-";
-  }
-  return "";
+  return "-";
 };
 
 export const LastTransactions = ({
@@ -55,9 +55,22 @@ export const LastTransactions = ({
         <ul className="space-y-5">
           {lastTransactions.map((transaction: Transaction) => (
             <li key={transaction.id} className="flex justify-between py-2">
-              <div className="flex items-center gap-2 bg-white bg-opacity-[3%]">
+              <div className="flex items-center gap-2">
                 {/* <Image src={""} width={20} height={20} alt="" /> */}
-                <PiPixLogo size={20} />
+                <div className="rounded-md bg-white bg-opacity-10 p-2">
+                  <i
+                    aria-label="icone de tipos de transferencia "
+                    title={TRANSACTION_PAYMENTE[transaction.paymentMethod]}
+                  >
+                    {React.createElement(
+                      TRANSACTION_PAYMENT_METHOD_ICONS[
+                        transaction.paymentMethod
+                      ],
+                      { size: 20 },
+                    )}
+                  </i>
+                </div>
+
                 <div className="flex flex-col items-center space-y-2">
                   <p className="text-sm">{transaction.name}</p>
 
