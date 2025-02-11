@@ -5,6 +5,7 @@ import { ITotalExpensePerCategory, ITypesPercentage } from "./types";
 
 export const getDashboard = async (month: string) => {
   const currentYear = new Date().getFullYear();
+  // user:"",// add usuario
   const where = {
     date: {
       //Entre dia 1, maior ou igual , e menor que dia 31
@@ -24,6 +25,10 @@ export const getDashboard = async (month: string) => {
       )._sum?.amount,
     );
   };
+
+  //TODO total tem que ser todo valor, nao somente do mes que estamos pra saber quanto
+  // pra saber quando tem no geral nao somente naquele mes
+  // colocar um default que seria todos os messes que existe dentr do db
   const depositsTotal = await transactionValuesTypes("DEPOSIT");
   const investmentsTotal = await transactionValuesTypes("INVESTMENT");
   const expensesTotal = await transactionValuesTypes("EXPENSE");
@@ -70,6 +75,21 @@ export const getDashboard = async (month: string) => {
     ),
   }));
 
+  //problema de decimal
+  const lastTransactions = await db.transaction.findMany({
+    where,
+    orderBy: {
+      date: "desc",
+    },
+    take: 10,
+  });
+  // .then(transactions =>
+  //   transactions.map(transaction => ({
+  //     ...transaction,
+  //     amount: Number(transaction.amount)
+  //   }))
+  // );
+
   return {
     totalBalance,
     depositsTotal,
@@ -78,5 +98,6 @@ export const getDashboard = async (month: string) => {
     transctionsTotal,
     typesPercentage,
     totalExpensePerCategory,
+    lastTransactions,
   };
 };

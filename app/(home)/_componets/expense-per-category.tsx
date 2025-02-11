@@ -27,11 +27,16 @@ const ExpensesPerCategory = ({
                 <p className="text-sm font-semibold">
                   {TRANSACTION_CATEGORY[category.category]}
                 </p>
+                {/* TODO colocar um information ℹ️  con descrição  */}
                 <span className="text-sm font-semibold">
                   {category.percentageTotal}%
                 </span>
               </div>
-              <Progress value={category.percentageTotal} />
+              <Progress
+                value={category.percentageTotal}
+                title="Categoria do Gasto "
+                aria-details={"Porcentagem dos gastos do mes"}
+              />
             </li>
           ))}
         </ul>
@@ -41,3 +46,12 @@ const ExpensesPerCategory = ({
 };
 
 export default ExpensesPerCategory;
+
+{
+  /* <div align="left">
+<a href="[https://github.com/DouglasB834](https://github.com/DouglasB834)">
+  <img height="150em" src="https://github-readme-stats.vercel.app/api?username=DouglasB834&theme=dracula"/>
+  <img height="150em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=DouglasB834&theme=dracula&hide_border=false&&layout=compact"/>
+</a>
+</div> */
+}

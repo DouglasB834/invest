@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { Navbar } from "../_components/navbar";
 import { getDashboard } from "../_data/get-dashboard";
 import ExpensesPerCategory from "./_componets/expense-per-category";
+import { LastTransactions } from "./_componets/last-transactions";
 import { SummaryCards } from "./_componets/summary-cards";
 import { TimeSelect } from "./_componets/time-select";
 import { TransactionPieChart } from "./_componets/transaction-pie-chart";
@@ -40,7 +41,7 @@ const Home = async ({ searchParams: { month } }: ISummaryMonthSelect) => {
           <TimeSelect />
         </div>
 
-        <div className="grid grid-cols-[2fr,1fr]">
+        <div className="grid grid-cols-[2fr,1fr] gap-4">
           <div className="flex flex-col gap-6">
             <SummaryCards month={month} {...dashboardData} />
 
@@ -51,6 +52,7 @@ const Home = async ({ searchParams: { month } }: ISummaryMonthSelect) => {
               />
             </div>
           </div>
+          <LastTransactions lastTransactions={dashboardData.lastTransactions} />
         </div>
       </div>
     </>

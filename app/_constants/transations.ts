@@ -3,6 +3,23 @@ import {
   TransactionPaymentMethod,
   TransactionType,
 } from "@prisma/client";
+import { BsCreditCard2Back } from "react-icons/bs";
+import { BsCashCoin } from "react-icons/bs";
+import { CiBarcode } from "react-icons/ci";
+import { FaRegCreditCard } from "react-icons/fa";
+import { FaMoneyBillTransfer } from "react-icons/fa6";
+import { MdDevicesOther } from "react-icons/md";
+import { PiPixLogo } from "react-icons/pi";
+
+export const TRANSACTION_PAYMENT_METHOD_ICONS = {
+  [TransactionPaymentMethod.BANK_SLIP]: CiBarcode,
+  [TransactionPaymentMethod.BANK_TRANSFER]: FaMoneyBillTransfer,
+  [TransactionPaymentMethod.CASH]: BsCashCoin,
+  [TransactionPaymentMethod.CREDIT_CARD]: FaRegCreditCard,
+  [TransactionPaymentMethod.DEBIT_CARD]: BsCreditCard2Back,
+  [TransactionPaymentMethod.PIX]: PiPixLogo,
+  [TransactionPaymentMethod.OTHER]: MdDevicesOther,
+};
 
 export const TRANSACTION_CATEGORY = {
   EDUCATION: "Educação",
