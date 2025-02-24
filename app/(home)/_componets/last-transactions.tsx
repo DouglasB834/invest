@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 // import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { createElement } from "react";
 
 import { CardContent, CardHeader, CardTitle } from "@/app/_components/ui/card";
 import { ScrollArea } from "@/app/_components/ui/scroll-area";
@@ -17,7 +17,7 @@ interface ILastTransactionsProps {
   lastTransactions: Transaction[];
 }
 
-const getPriceColor = (transaction: Transaction) => {
+const getAmountColor = (transaction: Transaction) => {
   if (transaction.type === TransactionType.DEPOSIT) {
     return "text-success_green";
   }
@@ -26,7 +26,7 @@ const getPriceColor = (transaction: Transaction) => {
   }
   return "text-white";
 };
-const princesAmount = (transaction: Transaction) => {
+const amountPrefix = (transaction: Transaction) => {
   if (transaction.type === TransactionType.DEPOSIT) {
     return "+";
   }
@@ -37,9 +37,12 @@ export const LastTransactions = ({
   lastTransactions,
 }: ILastTransactionsProps) => {
   return (
-    <ScrollArea className="rounded-md border p-5">
+    <ScrollArea
+      className="rounded-md border"
+      aria-label="Listta das ultimas 10 transações feitas"
+    >
       <CardHeader className="flex-row items-center justify-between">
-        <CardTitle>Transações</CardTitle>
+        <CardTitle>Ultimas Transações</CardTitle>
         <Button
           className="rounded-full font-semibold"
           variant={"outline"}
@@ -54,15 +57,18 @@ export const LastTransactions = ({
       <CardContent>
         <ul className="space-y-5">
           {lastTransactions.map((transaction: Transaction) => (
-            <li key={transaction.id} className="flex justify-between py-2">
+            <li
+              key={transaction.id}
+              className="flex items-center justify-between py-2"
+            >
               <div className="flex items-center gap-2">
                 {/* <Image src={""} width={20} height={20} alt="" /> */}
-                <div className="rounded-md bg-white bg-opacity-10 p-2">
+                <div className="rounded-md bg-white bg-opacity-10">
                   <i
-                    aria-label="icone de tipos de transferencia "
+                    aria-label="Icone de transferencia"
                     title={TRANSACTION_PAYMENTE[transaction.paymentMethod]}
                   >
-                    {React.createElement(
+                    {createElement(
                       TRANSACTION_PAYMENT_METHOD_ICONS[
                         transaction.paymentMethod
                       ],
@@ -86,9 +92,9 @@ export const LastTransactions = ({
               </div>
 
               <span
-                className={`text-sm font-semibold ${getPriceColor(transaction)}`}
+                className={`text-sm font-semibold ${getAmountColor(transaction)}`}
               >
-                {princesAmount(transaction)}{" "}
+                {amountPrefix(transaction)}
                 {formatCurrency(Number(transaction.amount))}
               </span>
             </li>

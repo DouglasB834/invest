@@ -13,7 +13,7 @@ import { Button } from "@/app/_components/ui/button";
 import { EditTransationButton } from "../_components/edit-transaction-button";
 import { TransactionTypeBadge } from "../_components/type-badge";
 
-export const transationsColumns: ColumnDef<Transaction>[] = [
+export const transactionColumns: ColumnDef<Transaction>[] = [
   {
     accessorKey: "name",
     header: "Nome",
