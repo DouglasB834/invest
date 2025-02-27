@@ -7,7 +7,8 @@ import { DataTable } from "../_components/ui/data-table";
 import { AddTransationButton } from "../_components/add-transation-button";
 import { Navbar } from "../_components/navbar";
 import { db } from "../_lib/prisma";
-import { transationsColumns } from "./_colunms";
+import { transactionColumns } from "./_colunms";
+import { ScrollArea } from "../_components/ui/scroll-area";
 
 const TransactionPage = async () => {
   const { userId } = await auth();
@@ -15,8 +16,8 @@ const TransactionPage = async () => {
   if (!userId) {
     redirect("/login");
   }
-  console.log(userId, "userId");
-  const transation = await db.transaction.findMany({
+
+  const transactions = await db.transaction.findMany({
     where: {
       userId,
     },
@@ -26,15 +27,17 @@ const TransactionPage = async () => {
   return (
     <>
       <Navbar />
-      <div className="space-y-6 p-6">
-        <div className="flex items-center justify-between">
+      <div className="space-y-6 overflow-hidden p-6">
+        {/* TÍTULO E BOTÃO */}
+        <div className="flex w-full items-center justify-between">
           <h1 className="text-2xl font-bold">Transações</h1>
           <AddTransationButton />
         </div>
-        <DataTable
-          columns={transationsColumns}
-          data={JSON.parse(JSON.stringify(transation))} //converte antes de chagar aqui
-        />
+        <ScrollArea>
+          <div className="h-full overflow-hidden">
+            <DataTable columns={transactionColumns} data={transactions} />
+          </div>
+        </ScrollArea>
       </div>
     </>
   );

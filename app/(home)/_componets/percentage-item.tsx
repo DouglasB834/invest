@@ -15,7 +15,7 @@ export const PercentageItem = ({
     <div className="space-y-3">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          {icon}
+          <div className="rounded-md bg-white bg-opacity-10 p-1">{icon}</div>
           <span className="text-sm">{title}</span>
         </div>
         <span className="text-sm font-semibold">{value}%</span>

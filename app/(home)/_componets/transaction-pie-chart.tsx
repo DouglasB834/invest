@@ -63,8 +63,8 @@ export function TransactionPieChart({
   ];
 
   return (
-    <Card className="flex flex-col p-6">
-      <CardContent className="flex-1">
+    <Card className="xl::p-6 flex flex-col">
+      <CardContent className="flex-1 p-0 lg:p-4">
         <ChartContainer
           config={chartConfig}
           className="mx-auto aspect-square max-h-[250px]"
@@ -85,11 +85,6 @@ export function TransactionPieChart({
 
         <div className="space-y-3">
           <PercentageItem
-            icon={<PiggyBankIcon size={16} className="text-primary" />}
-            title="Investido"
-            value={typesPercentage[TransactionType.INVESTMENT]}
-          />
-          <PercentageItem
             icon={<TrendingUpIcon size={16} className="text-success_green" />}
             title="Receita"
             value={typesPercentage[TransactionType.DEPOSIT]}
@@ -98,6 +93,11 @@ export function TransactionPieChart({
             icon={<TrendingDownIcon size={16} className="text-danger" />}
             title="Despesas"
             value={typesPercentage[TransactionType.EXPENSE]}
+          />
+          <PercentageItem
+            icon={<PiggyBankIcon size={16} className="text-primary" />}
+            title="Investido"
+            value={typesPercentage[TransactionType.INVESTMENT]}
           />
         </div>
       </CardContent>

@@ -1,3 +1,4 @@
+// import { auth } from "@clerk/nextjs/server";
 import { db } from "@/app/_lib/prisma";
 import { TransactionType } from "@prisma/client";
 
@@ -5,8 +6,11 @@ import { ITotalExpensePerCategory, ITypesPercentage } from "./types";
 
 export const getDashboard = async (month: string) => {
   const currentYear = new Date().getFullYear();
+  // const { userId } = await auth();
+  // if (!userId) throw new Error("User Unauthorized.");
   // user:"",// add usuario
   const where = {
+    // userId,
     date: {
       //Entre dia 1, maior ou igual , e menor que dia 31
       //TOOD colocar pro usuario esoclher o ano
