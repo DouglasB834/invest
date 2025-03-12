@@ -21,22 +21,23 @@ const TransactionPage = async () => {
     where: {
       userId,
     },
+    orderBy: {
+      date: "desc",
+    },
   });
 
   //composition pattern
   return (
     <>
       <Navbar />
-      <div className="space-y-6 overflow-hidden p-6">
+      <div className="h-dvh space-y-6 p-6">
         {/* TÍTULO E BOTÃO */}
         <div className="flex w-full items-center justify-between">
           <h1 className="text-2xl font-bold">Transações</h1>
           <AddTransationButton />
         </div>
-        <ScrollArea>
-          <div className="h-full overflow-hidden">
-            <DataTable columns={transactionColumns} data={transactions} />
-          </div>
+        <ScrollArea className="h-[calc(100vh-200px)]">
+          <DataTable columns={transactionColumns} data={transactions} />
         </ScrollArea>
       </div>
     </>

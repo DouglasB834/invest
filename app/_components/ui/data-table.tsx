@@ -31,9 +31,9 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="rounded-md border">
+    <div className="h-full overflow-auto rounded-md border">
       <Table>
-        <TableHeader>
+        <TableHeader className="bg-secondary">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {

@@ -1,4 +1,4 @@
-// import { auth } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
 import { db } from "@/app/_lib/prisma";
 import { TransactionType } from "@prisma/client";
 
@@ -6,11 +6,11 @@ import { ITotalExpensePerCategory, ITypesPercentage } from "./types";
 
 export const getDashboard = async (month: string) => {
   const currentYear = new Date().getFullYear();
-  // const { userId } = await auth();
-  // if (!userId) throw new Error("User Unauthorized.");
+  const { userId } = await auth();
+  if (!userId) throw new Error("User Unauthorized.");
   // user:"",// add usuario
   const where = {
-    // userId,
+    userId,
     date: {
       //Entre dia 1, maior ou igual , e menor que dia 31
       //TOOD colocar pro usuario esoclher o ano
@@ -31,8 +31,9 @@ export const getDashboard = async (month: string) => {
   };
 
   //TODO total tem que ser todo valor, nao somente do mes que estamos pra saber quanto
-  // pra saber quando tem no geral nao somente naquele mes
-  // colocar um default que seria todos os messes que existe dentr do db
+  // tem no geral, nao somente naquele mes,
+  // colocar um default que seria todos os messes que ja passaram e o ano
+  //pegando o total
   const depositsTotal = await transactionValuesTypes("DEPOSIT");
   const investmentsTotal = await transactionValuesTypes("INVESTMENT");
   const expensesTotal = await transactionValuesTypes("EXPENSE");

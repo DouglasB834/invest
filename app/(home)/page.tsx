@@ -1,7 +1,7 @@
 import { format, isMatch } from "date-fns";
 import { redirect } from "next/navigation";
 
-// import { auth } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
 
 import { Navbar } from "../_components/navbar";
 import { getDashboard } from "../_data/get-dashboard";
@@ -19,10 +19,10 @@ interface ISummaryMonthSelect {
 
 const Home = async ({ searchParams: { month } }: ISummaryMonthSelect) => {
   const monthIsInvalid: boolean = !month || !isMatch(month, "MM");
-  // const { userId } = await auth();
-  // if (!userId) {
-  //   redirect("/login");
-  // }
+  const { userId } = await auth();
+  if (!userId) {
+    redirect("/login");
+  }
   // console.log(userId, "userId >>> ");
 
   if (monthIsInvalid) {
